@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		489CF2ED2966BD8C001ADE33 /* NestedObservableObjectsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489CF2EC2966BD8C001ADE33 /* NestedObservableObjectsApp.swift */; };
-		489CF2EF2966BD8C001ADE33 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489CF2EE2966BD8C001ADE33 /* ContentView.swift */; };
+		489CF2EF2966BD8C001ADE33 /* BadApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489CF2EE2966BD8C001ADE33 /* BadApproach.swift */; };
 		489CF2F12966BD8D001ADE33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489CF2F02966BD8D001ADE33 /* Assets.xcassets */; };
 		489CF2F42966BD8D001ADE33 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489CF2F32966BD8D001ADE33 /* Preview Assets.xcassets */; };
+		489CF2FB2966CD8B001ADE33 /* GoodApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489CF2FA2966CD8B001ADE33 /* GoodApproach.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		489CF2E92966BD8C001ADE33 /* NestedObservableObjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestedObservableObjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		489CF2EC2966BD8C001ADE33 /* NestedObservableObjectsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedObservableObjectsApp.swift; sourceTree = "<group>"; };
-		489CF2EE2966BD8C001ADE33 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		489CF2EE2966BD8C001ADE33 /* BadApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadApproach.swift; sourceTree = "<group>"; };
 		489CF2F02966BD8D001ADE33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		489CF2F32966BD8D001ADE33 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		489CF2FA2966CD8B001ADE33 /* GoodApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodApproach.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,8 @@
 			isa = PBXGroup;
 			children = (
 				489CF2EC2966BD8C001ADE33 /* NestedObservableObjectsApp.swift */,
-				489CF2EE2966BD8C001ADE33 /* ContentView.swift */,
+				489CF2EE2966BD8C001ADE33 /* BadApproach.swift */,
+				489CF2FA2966CD8B001ADE33 /* GoodApproach.swift */,
 				489CF2F02966BD8D001ADE33 /* Assets.xcassets */,
 				489CF2F22966BD8D001ADE33 /* Preview Content */,
 			);
@@ -137,8 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				489CF2EF2966BD8C001ADE33 /* ContentView.swift in Sources */,
+				489CF2EF2966BD8C001ADE33 /* BadApproach.swift in Sources */,
 				489CF2ED2966BD8C001ADE33 /* NestedObservableObjectsApp.swift in Sources */,
+				489CF2FB2966CD8B001ADE33 /* GoodApproach.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
