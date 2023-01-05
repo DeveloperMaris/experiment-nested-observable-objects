@@ -1,5 +1,5 @@
 //
-//  GoodApproach.swift
+//  FirstApproach.swift
 //  NestedObservableObjects
 //
 //  Created by Maris Lagzdins on 05/01/2023.
@@ -8,12 +8,12 @@
 import SwiftUI
 
 /*
- A better approach is to not use nested objects and just
- use the ViewModel as an object, which helps to format the View
- and show the Profile content straight from it on the View.
+ An approach where there are no nested observable objects,
+ and the ViewModel is used as a helper to display the Profile
+ properties.
  */
 
-struct GoodApproach: View {
+struct FirstApproach: View {
     @StateObject private var viewModel: ViewModel
     @ObservedObject private var profile: Profile
 
@@ -27,7 +27,7 @@ struct GoodApproach: View {
             HStack {
                 Text("Planned savings:")
                 Text(viewModel.localizedPlannedSavings)
-                    .foregroundColor(viewModel.isPlannedSavingsReached(moneyAmount: profile.moneyAmount) ? .green : .red)
+                    .foregroundColor(viewModel.isSavingsReached(moneyAmount: profile.moneyAmount) ? .green : .red)
             }
             Button("Increase savings amount") {
                 viewModel.plannedSavings += 10
@@ -48,7 +48,7 @@ struct GoodApproach: View {
     }
 }
 
-extension GoodApproach {
+extension FirstApproach {
     class ViewModel: ObservableObject {
         private let formatter: NumberFormatter = .currency
 
@@ -62,14 +62,14 @@ extension GoodApproach {
             formatter.string(from: moneyAmount as NSNumber)!
         }
 
-        func isPlannedSavingsReached(moneyAmount: Double) -> Bool {
+        func isSavingsReached(moneyAmount: Double) -> Bool {
             moneyAmount >= plannedSavings
         }
     }
 }
 
-struct GoodApproach_Previews: PreviewProvider {
+struct FirstApproach_Previews: PreviewProvider {
     static var previews: some View {
-        GoodApproach(profile: Profile())
+        FirstApproach(profile: Profile())
     }
 }

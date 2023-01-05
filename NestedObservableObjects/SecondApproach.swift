@@ -1,5 +1,5 @@
 //
-//  BadApproach.swift
+//  SecondApproach.swift
 //  NestedObservableObjects
 //
 //  Created by Maris Lagzdins on 05/01/2023.
@@ -9,18 +9,21 @@ import Combine
 import SwiftUI
 
 /*
- This approach won't work, because nested objects will not trigger the
- ViewModel `objectWillChange` notification, which the View observes.
+ Approach with nested observable objects requires some additional help
+ from Combine, to subscribe for the nested object property changes.
+
+ Nested objects, normally will not trigger the ViewModel `objectWillChange`
+ notification, which the View observes.
 
  Therefore if the Profile will change its properties,
- the ViewModel will not signal the ContentView to trigger update.
+ the ViewModel will not send a signal to the View to trigger body update.
 
- There is a hack to make it update by subscribing to the `objectWillChange` property
- on the Profile and then trigger the same property on ViewModel to signal the
+ To make it work, subscribe to the `objectWillChange` property on the Profile
+ and then trigger the `objectWillChange` on ViewModel manually to signal the
  View for the body update.
  */
 
-struct BadApproach: View {
+struct SecondApproach: View {
     @StateObject private var viewModel: ViewModel
 
     init(profile: Profile) {
@@ -32,7 +35,7 @@ struct BadApproach: View {
             HStack {
                 Text("Planned savings:")
                 Text(viewModel.localizedPlannedSavings)
-                    .foregroundColor(viewModel.isPlannedSavingsReached ? .green : .red)
+                    .foregroundColor(viewModel.isSavingsReached ? .green : .red)
             }
             Button("Increase savings amount") {
                 viewModel.plannedSavings += 10
@@ -53,7 +56,7 @@ struct BadApproach: View {
     }
 }
 
-extension BadApproach {
+extension SecondApproach {
     class ViewModel: ObservableObject {
         private let formatter: NumberFormatter = .currency
         private var profile: Profile
@@ -69,7 +72,7 @@ extension BadApproach {
             formatter.string(from: profile.moneyAmount as NSNumber)!
         }
 
-        var isPlannedSavingsReached: Bool {
+        var isSavingsReached: Bool {
             profile.moneyAmount >= plannedSavings
         }
 
@@ -88,8 +91,8 @@ extension BadApproach {
     }
 }
 
-struct BadApproach_Previews: PreviewProvider {
+struct SecondApproach_Previews: PreviewProvider {
     static var previews: some View {
-        BadApproach(profile: Profile())
+        SecondApproach(profile: Profile())
     }
 }

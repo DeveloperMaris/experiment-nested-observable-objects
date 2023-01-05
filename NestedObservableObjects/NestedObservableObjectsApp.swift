@@ -22,14 +22,14 @@ struct NestedObservableObjectsApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                BadApproach(profile: profile)
+                FirstApproach(profile: profile)
                     .tabItem {
-                        Text("Bad approach")
+                        Text("First approach")
                     }
 
-                GoodApproach(profile: profile)
+                SecondApproach(profile: profile)
                     .tabItem {
-                        Text("Good approach")
+                        Text("Second approach")
                     }
             }
         }
