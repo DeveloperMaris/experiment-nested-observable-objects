@@ -24,8 +24,21 @@ struct GoodApproach: View {
 
     var body: some View {
         VStack {
-            Text("Current status:")
-            Text(viewModel.localized(money: profile.moneyAmount))
+            HStack {
+                Text("Planned savings:")
+                Text(viewModel.localizedPlannedSavings)
+                    .foregroundColor(viewModel.isPlannedSavingsReached(moneyAmount: profile.moneyAmount) ? .green : .red)
+            }
+            Button("Increase savings amount") {
+                viewModel.plannedSavings += 10
+            }
+
+            Divider()
+
+            HStack {
+                Text("Current money amount:")
+                Text(viewModel.localized(moneyAmount: profile.moneyAmount))
+            }
 
             Button("Add money") {
                 profile.addMoney()
@@ -39,8 +52,18 @@ extension GoodApproach {
     class ViewModel: ObservableObject {
         private let formatter: NumberFormatter = .currency
 
-        func localized(money: Double) -> String {
-            formatter.string(from: money as NSNumber)!
+        @Published var plannedSavings: Double = 0
+
+        var localizedPlannedSavings: String {
+            formatter.string(from: plannedSavings as NSNumber)!
+        }
+
+        func localized(moneyAmount: Double) -> String {
+            formatter.string(from: moneyAmount as NSNumber)!
+        }
+
+        func isPlannedSavingsReached(moneyAmount: Double) -> Bool {
+            moneyAmount >= plannedSavings
         }
     }
 }

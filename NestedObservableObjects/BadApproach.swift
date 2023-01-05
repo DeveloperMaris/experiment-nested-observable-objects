@@ -5,6 +5,7 @@
 //  Created by Maris Lagzdins on 05/01/2023.
 //
 
+import Combine
 import SwiftUI
 
 /*
@@ -17,12 +18,6 @@ import SwiftUI
  There is a hack to make it update by subscribing to the `objectWillChange` property
  on the Profile and then trigger the same property on ViewModel to signal the
  View for the body update.
-
- ```swift
- cancellable = profile.objectWillChange.sink { [weak self] _ in
-    self?.objectWillChange.send()
- }
- ```
  */
 
 struct BadApproach: View {
@@ -34,8 +29,21 @@ struct BadApproach: View {
 
     var body: some View {
         VStack {
-            Text("Current status:")
-            Text(viewModel.localizedMoney)
+            HStack {
+                Text("Planned savings:")
+                Text(viewModel.localizedPlannedSavings)
+                    .foregroundColor(viewModel.isPlannedSavingsReached ? .green : .red)
+            }
+            Button("Increase savings amount") {
+                viewModel.plannedSavings += 10
+            }
+
+            Divider()
+
+            HStack {
+                Text("Current money amount:")
+                Text(viewModel.localizedMoney)
+            }
 
             Button("Add money") {
                 viewModel.addMoney()
@@ -49,13 +57,29 @@ extension BadApproach {
     class ViewModel: ObservableObject {
         private let formatter: NumberFormatter = .currency
         private var profile: Profile
+        private var cancellable: AnyCancellable?
+
+        @Published var plannedSavings: Double = 0
+
+        var localizedPlannedSavings: String {
+            formatter.string(from: plannedSavings as NSNumber)!
+        }
 
         var localizedMoney: String {
             formatter.string(from: profile.moneyAmount as NSNumber)!
         }
 
+        var isPlannedSavingsReached: Bool {
+            profile.moneyAmount >= plannedSavings
+        }
+
         init(profile: Profile) {
             self.profile = profile
+
+            // Need to manually observe and trigger view update if the Profile property changes it's properties.
+            cancellable = profile.objectWillChange.sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
         }
 
         func addMoney() {
